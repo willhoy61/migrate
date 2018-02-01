@@ -8,8 +8,20 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 const session = require("express-session");
+const mysql = require("mysql");
 
 const configDB = require("./client/src/components/config/database.js");
+
+var con = mysql.createConnection({
+  host: PORT,
+  user: "willhoy61",
+  password: "root"
+});
+
+con.connect(function(err) {
+  if (err) throw err;
+  console.log("Connected! to MYsql");
+});
 
 app.use(morgan('dev')); //log every requesty to console
 app.use(cookieParser()); // read cookies (needed for auth)
