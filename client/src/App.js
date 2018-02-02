@@ -1,49 +1,31 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+
 import FacebookLoginButton from './FacebookLoginButton';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import Login from "./pages/Signup";
+import Signin from "./pages/signin";
+import axios from "axios";
+
 
 class App extends Component {
 
-  state = {
-    username: null
-  };
-
-  onFacebookLogin = (loginStatus, resultObject) => {
-    if (loginStatus === true) {
-      this.setState({
-        username: resultObject.user.name
-      });
-    } else {
-      alert('Facebook login error');
-    }
+  componentDidMount() {
+    axios.get("/api/test").then(
+      res => console.log(res)
+      );
   }
-
   render() {
-    const { username } = this.state;
-
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">React Social Media Login</h1>
-        </header>
-
-        <div className="App-intro">
-          { !username &&
-            <div>
-              <p>Click on one of any button below to login</p>
-              <FacebookLoginButton onLogin={this.onFacebookLogin}>
-                <button>Facebook</button>
-              </FacebookLoginButton>
-            </div>
-          }
-          {username &&
-            <p>Welcome back, {username}</p>
-          }
+        <Router>
+        <div>
+          <Switch>
+            <Route exact path ="signin" component = {signin}/>
+            <Route exact path ="signup" component = {signup}/>
+            <Route exact path ="home" component = {home}/>
+            <Route component ={NoMatch}/>
+          </Switch>
         </div>
-      </div>
-    );
+        </Router>
+      );
   }
 }
-
-export default App;
