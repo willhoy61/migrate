@@ -1,3 +1,4 @@
+import react, { Component } from 'react'; 
 const sequelize = require("sequelize");
 const Schema = sequelize.Schema;
 const passportLocalSequelize = require("passport-local-sequelize");
